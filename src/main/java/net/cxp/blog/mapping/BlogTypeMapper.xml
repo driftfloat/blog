@@ -79,10 +79,13 @@
 	
 	<select id="listBlogType" parameterType="Map" resultMap="BaseResultMap">
 	  select ee.* from
-	  (select e.*,rownum r from
+	  (select e.*
+<!-- 	  ,rownum r  -->
+	  from
 	   (select* from t_blogtype order by id) e
-	  where rownum &lt;= #{page}*#{pageSize} ) ee
-	   where r &gt; #{start}
+<!-- 	  where rownum &lt;= #{page}*#{pageSize}  -->
+	  ) ee
+<!-- 	   where r &gt; #{start} -->
 	</select>
 	
 	<select id="getTotal" parameterType="Map" resultType="Long">
