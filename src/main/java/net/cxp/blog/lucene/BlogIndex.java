@@ -47,7 +47,7 @@ public class BlogIndex {
 
 	private IndexWriter getWriter() throws Exception {
 		//在这个文件夹下建立索引文件
-		dir = FSDirectory.open(Paths.get("F:\\blog_index"));
+		dir = FSDirectory.open(Paths.get("t:\\blog_index"));
 		SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		IndexWriter writer = new IndexWriter(dir, config);
@@ -112,7 +112,7 @@ public class BlogIndex {
 		
 		 //如果blogIndexList.subList(fromIndex, toIndex)这句报空指针异常，取消注释下面这句运行后再注释
          //getWriter().commit();   
-		dir = FSDirectory.open(Paths.get("F:\\blog_index"));
+		dir = FSDirectory.open(Paths.get("t:\\blog_index"));
 		System.out.println("dir--->"+dir);
 		IndexReader reader = DirectoryReader.open(dir);
 		IndexSearcher search = new IndexSearcher(reader);

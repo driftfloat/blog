@@ -5,9 +5,9 @@
     <id column="ID" property="id" jdbcType="DECIMAL" />
     <result column="TITLE" property="title" jdbcType="VARCHAR" />
     <result column="SUMMARY" property="summary" jdbcType="VARCHAR" />
-    <result column="RELEASEDATE" property="releaseDate" jdbcType="TIMESTAMP" />
-    <result column="CLICKHIT" property="clickHit" jdbcType="DECIMAL" />
-    <result column="REPLYHIT" property="replyHit" jdbcType="DECIMAL" />
+    <result column="releaseDate" property="releaseDate" jdbcType="TIMESTAMP" />
+    <result column="clickHit" property="clickHit" jdbcType="DECIMAL" />
+    <result column="replyHit" property="replyHit" jdbcType="DECIMAL" />
     <result column="CONTENT" property="content" jdbcType="VARCHAR" />
     <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
     <!-- <result column="TYPE_ID" property="typeId" jdbcType="DECIMAL" /> -->
@@ -16,7 +16,7 @@
     </association>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, TITLE, SUMMARY, RELEASEDATE, CLICKHIT, REPLYHIT, CONTENT, KEYWORD, TYPE_ID
+    ID, TITLE, SUMMARY, releaseDate, clickHit, replyHit, CONTENT, KEYWORD, TYPE_ID
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -30,15 +30,15 @@
   </delete>
   <insert id="insert" parameterType="net.cxp.blog.entity.Blog" >
     insert into T_BLOG (ID, TITLE, SUMMARY, 
-      RELEASEDATE, CLICKHIT, REPLYHIT, 
+      releaseDate, clickHit, replyHit, 
       CONTENT, KEYWORD, TYPE_ID
       )
     values (#{id,jdbcType=DECIMAL}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{releasedate,jdbcType=TIMESTAMP}, #{clickhit,jdbcType=DECIMAL}, #{replyhit,jdbcType=DECIMAL}, 
-      #{content,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{typeId,jdbcType=DECIMAL}
+      #{releaseDate,jdbcType=TIMESTAMP}, #{clickHit,jdbcType=DECIMAL}, #{replyHit,jdbcType=DECIMAL}, 
+      #{content,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{blogType.id,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="net.cxp.blog.entity.Blog" >
+  <insert id="addBlog" parameterType="net.cxp.blog.entity.Blog" >
     insert into T_BLOG
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -50,14 +50,14 @@
       <if test="summary != null" >
         SUMMARY,
       </if>
-      <if test="releasedate != null" >
-        RELEASEDATE,
+      <if test="releaseDate != null" >
+        releaseDate,
       </if>
-      <if test="clickhit != null" >
-        CLICKHIT,
+      <if test="clickHit != null" >
+        clickHit,
       </if>
-      <if test="replyhit != null" >
-        REPLYHIT,
+      <if test="replyHit != null" >
+        replyHit,
       </if>
       <if test="content != null" >
         CONTENT,
@@ -65,7 +65,7 @@
       <if test="keyword != null" >
         KEYWORD,
       </if>
-      <if test="typeId != null" >
+      <if test="blogType.id != null" >
         TYPE_ID,
       </if>
     </trim>
@@ -79,14 +79,14 @@
       <if test="summary != null" >
         #{summary,jdbcType=VARCHAR},
       </if>
-      <if test="releasedate != null" >
-        #{releasedate,jdbcType=TIMESTAMP},
+      <if test="releaseDate != null" >
+        #{releaseDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="clickhit != null" >
-        #{clickhit,jdbcType=DECIMAL},
+      <if test="clickHit != null" >
+        #{clickHit,jdbcType=DECIMAL},
       </if>
-      <if test="replyhit != null" >
-        #{replyhit,jdbcType=DECIMAL},
+      <if test="replyHit != null" >
+        #{replyHit,jdbcType=DECIMAL},
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
@@ -94,8 +94,8 @@
       <if test="keyword != null" >
         #{keyword,jdbcType=VARCHAR},
       </if>
-      <if test="typeId != null" >
-        #{typeId,jdbcType=DECIMAL},
+      <if test="blogType.id != null" >
+        #{blogType.id,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -109,13 +109,13 @@
         SUMMARY = #{summary,jdbcType=VARCHAR},
       </if>
       <if test="releaseDate != null" >
-        RELEASEDATE = #{releaseDate,jdbcType=TIMESTAMP},
+        releaseDate = #{releaseDate,jdbcType=TIMESTAMP},
       </if>
       <if test="clickHit != null" >
-        CLICKHIT = #{clickHit,jdbcType=DECIMAL},
+        clickHit = #{clickHit,jdbcType=DECIMAL},
       </if>
       <if test="replyHit != null" >
-        REPLYHIT = #{replyHit,jdbcType=DECIMAL},
+        replyHit = #{replyHit,jdbcType=DECIMAL},
       </if>
       <if test="content != null" >
         CONTENT = #{content,jdbcType=VARCHAR},
@@ -130,12 +130,12 @@
     update T_BLOG
     set TITLE = #{title,jdbcType=VARCHAR},
       SUMMARY = #{summary,jdbcType=VARCHAR},
-      RELEASEDATE = #{releaseDate,jdbcType=TIMESTAMP},
-      CLICKHIT = #{clickhit,jdbcType=DECIMAL},
-      REPLYHIT = #{replyhit,jdbcType=DECIMAL},
+      releaseDate = #{releaseDate,jdbcType=TIMESTAMP},
+      clickHit = #{clickHit,jdbcType=DECIMAL},
+      replyHit = #{replyHit,jdbcType=DECIMAL},
       CONTENT = #{content,jdbcType=VARCHAR},
       KEYWORD = #{keyword,jdbcType=VARCHAR},
-      TYPE_ID = #{typeId,jdbcType=DECIMAL}
+      TYPE_ID = #{blogType.id,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   
@@ -199,7 +199,7 @@
      select * from t_blog where id=(select min(id) from t_blog where id&gt;#{id})
    </select>
    <select id="getBlogNumByTypeId" parameterType="Integer" resultMap="BaseResultMap">
-    select count(1) from t_blog where type_id=#{typeId}
+    select count(1) from t_blog where type_id=#{blogType.id}
    </select>
    
 </mapper>
