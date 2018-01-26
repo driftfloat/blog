@@ -111,23 +111,26 @@
   
   <select id="getCommentData" parameterType="Map" resultMap="BaseResultMap">
   select ee.* from
-  (select e.*,rownum r from
+  (select e.*
+<!--   ,rownum r  -->
+   from
     (select * from t_comment 
     <where>
     <if test="blogId!=null and blogId!=''">
       blog_id=#{blogId}
     </if>
     </where> order by id) e
-    <where>
-     <if test="page!=null and pageSize!=null">
-        rownum &lt;=#{page}*#{pageSize}
-     </if>
-    </where>) ee
-     <where>
-     <if test="start!=null">
-        r &gt; #{start}
-     </if>
-    </where>
+<!--     <where> -->
+<!--      <if test="page!=null and pageSize!=null"> -->
+<!--         rownum &lt;=#{page}*#{pageSize} -->
+<!--      </if> -->
+<!--     </where> -->
+    ) ee
+<!--      <where> -->
+<!--      <if test="start!=null"> -->
+<!--         r &gt; #{start} -->
+<!--      </if> -->
+<!--     </where> -->
   </select>
   
   <insert id="addComment" parameterType="net.cxp.blog.entity.Comment">
