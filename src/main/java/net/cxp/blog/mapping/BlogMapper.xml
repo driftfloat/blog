@@ -1,203 +1,125 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.cxp.blog.dao.BlogMapper" >
-  <resultMap id="BaseResultMap" type="net.cxp.blog.entity.Blog" >
+<mapper namespace="net.cxp.blog.dao.BloggerMapper" >
+  <resultMap id="BaseResultMap" type="net.cxp.blog.entity.Blogger" >
     <id column="ID" property="id" jdbcType="DECIMAL" />
-    <result column="TITLE" property="title" jdbcType="VARCHAR" />
-    <result column="SUMMARY" property="summary" jdbcType="VARCHAR" />
-    <result column="RELEASEDATE" property="releaseDate" jdbcType="TIMESTAMP" />
-    <result column="CLICKHIT" property="clickHit" jdbcType="DECIMAL" />
-    <result column="REPLYHIT" property="replyHit" jdbcType="DECIMAL" />
-    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
-    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
-    <!-- <result column="TYPE_ID" property="typeId" jdbcType="DECIMAL" /> -->
-   
-    <association property="blogType" column="TYPE_ID" select="net.cxp.blog.dao.BlogTypeMapper.findById">
-    </association>
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="PROFILE" property="profile" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="SIGN" property="sign" jdbcType="VARCHAR" />
+    <result column="IMAGENAME" property="imagename" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, TITLE, SUMMARY, RELEASEDATE, CLICKHIT, REPLYHIT, CONTENT, KEYWORD, TYPE_ID
+    ID, USERNAME, PASSWORD, PROFILE, NICKNAME, SIGN, IMAGENAME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from T_BLOG
+    from T_BLOGGER
     where ID = #{id,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from T_BLOG
+    delete from T_BLOGGER
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
-  <insert id="insert" parameterType="net.cxp.blog.entity.Blog" >
-    insert into T_BLOG (ID, TITLE, SUMMARY, 
-      RELEASEDATE, CLICKHIT, REPLYHIT, 
-      CONTENT, KEYWORD, TYPE_ID
-      )
-    values (#{id,jdbcType=DECIMAL}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{releasedate,jdbcType=TIMESTAMP}, #{clickhit,jdbcType=DECIMAL}, #{replyhit,jdbcType=DECIMAL}, 
-      #{content,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{typeId,jdbcType=DECIMAL}
-      )
+  <insert id="insert" parameterType="net.cxp.blog.entity.Blogger" >
+    insert into T_BLOGGER (ID, USERNAME, PASSWORD, 
+      PROFILE, NICKNAME, SIGN, 
+      IMAGENAME)
+    values (#{id,jdbcType=DECIMAL}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{profile,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{imagename,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.cxp.blog.entity.Blog" >
-    insert into T_BLOG
+  <insert id="insertSelective" parameterType="net.cxp.blog.entity.Blogger" >
+    insert into T_BLOGGER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
-      <if test="title != null" >
-        TITLE,
+      <if test="username != null" >
+        USERNAME,
       </if>
-      <if test="summary != null" >
-        SUMMARY,
+      <if test="password != null" >
+        PASSWORD,
       </if>
-      <if test="releasedate != null" >
-        RELEASEDATE,
+      <if test="profile != null" >
+        PROFILE,
       </if>
-      <if test="clickhit != null" >
-        CLICKHIT,
+      <if test="nickname != null" >
+        NICKNAME,
       </if>
-      <if test="replyhit != null" >
-        REPLYHIT,
+      <if test="sign != null" >
+        SIGN,
       </if>
-      <if test="content != null" >
-        CONTENT,
-      </if>
-      <if test="keyword != null" >
-        KEYWORD,
-      </if>
-      <if test="typeId != null" >
-        TYPE_ID,
+      <if test="imagename != null" >
+        IMAGENAME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=DECIMAL},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
       </if>
-      <if test="summary != null" >
-        #{summary,jdbcType=VARCHAR},
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
       </if>
-      <if test="releasedate != null" >
-        #{releasedate,jdbcType=TIMESTAMP},
+      <if test="profile != null" >
+        #{profile,jdbcType=VARCHAR},
       </if>
-      <if test="clickhit != null" >
-        #{clickhit,jdbcType=DECIMAL},
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="replyhit != null" >
-        #{replyhit,jdbcType=DECIMAL},
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="keyword != null" >
-        #{keyword,jdbcType=VARCHAR},
-      </if>
-      <if test="typeId != null" >
-        #{typeId,jdbcType=DECIMAL},
+      <if test="imagename != null" >
+        #{imagename,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="update" parameterType="net.cxp.blog.entity.Blog" >
-    update T_BLOG
+  <update id="updateBlogger" parameterType="net.cxp.blog.entity.Blogger" >
+    update T_BLOGGER
     <set >
-      <if test="title != null" >
-        TITLE = #{title,jdbcType=VARCHAR},
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="summary != null" >
-        SUMMARY = #{summary,jdbcType=VARCHAR},
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="releaseDate != null" >
-        RELEASEDATE = #{releaseDate,jdbcType=TIMESTAMP},
+      <if test="profile != null" >
+        PROFILE = #{profile,jdbcType=VARCHAR},
       </if>
-      <if test="clickHit != null" >
-        CLICKHIT = #{clickHit,jdbcType=DECIMAL},
+      <if test="nickname != null" >
+        NICKNAME = #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="replyHit != null" >
-        REPLYHIT = #{replyHit,jdbcType=DECIMAL},
+      <if test="sign != null" >
+        SIGN = #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        CONTENT = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="keyword != null" >
-        KEYWORD = #{keyword,jdbcType=VARCHAR},
+      <if test="imagename != null" >
+        IMAGENAME = #{imagename,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.cxp.blog.entity.Blog" >
-    update T_BLOG
-    set TITLE = #{title,jdbcType=VARCHAR},
-      SUMMARY = #{summary,jdbcType=VARCHAR},
-      RELEASEDATE = #{releaseDate,jdbcType=TIMESTAMP},
-      CLICKHIT = #{clickhit,jdbcType=DECIMAL},
-      REPLYHIT = #{replyhit,jdbcType=DECIMAL},
-      CONTENT = #{content,jdbcType=VARCHAR},
-      KEYWORD = #{keyword,jdbcType=VARCHAR},
-      TYPE_ID = #{typeId,jdbcType=DECIMAL}
+  <update id="updateByPrimaryKey" parameterType="net.cxp.blog.entity.Blogger" >
+    update T_BLOGGER
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PROFILE = #{profile,jdbcType=VARCHAR},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      SIGN = #{sign,jdbcType=VARCHAR},
+      IMAGENAME = #{imagename,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   
-  
-  <select id="getBlogData" resultMap="BaseResultMap">
-  SELECT to_char(releaseDate,'yyyy-mm') As releaseDateStr,COUNT(1) AS blogCount
-   FROM t_blog GROUP by to_char(releaseDate,'yyyy-mm') 
-   order by to_char(releaseDate,'yyyy-mm') desc
-  </select>
-  <select id="listBlog" parameterType="Map" resultMap="BaseResultMap">
-   select ee.* FROM   
-   (select e.*,rownum r FROM
-    (SELECT * FROM t_blog 
-    <where>
-      <if test="title!=null and title!=''">
-       and  title like #{title}
-      </if>
-      <if test="typeId!=null and typeId!=''">
-       and type_id=#{typeId}
-      </if>
-      <if test="releaseDateStr!=null and releaseDateStr!=''">
-       and to_char(releaseDate,'yyyy-mm')=#{releaseDateStr}
-      </if>
-    </where>  
-     ORDER BY releaseDate DESC) e 
-     <where>
-     <if test="page!=null and pageSize!=null">
-       rownum &lt;= #{page}*#{pageSize}
-       </if>
-     </where> 
-      ) ee
-      <where>
-      <if test="start!=null">
-         r &gt; #{start}
-         </if>
-      </where> 
-  </select>	
-  <select id="getTotal" parameterType="Map" resultType="Long">
-  SELECT COUNT(1) FROM t_blog
-    <where>
-     <if test="title!=null and title!=''">
-      and title like=#{title}
-     </if>
-     <if test="typeId!=null and typeId!=''">
-      and type_id=#{typeId}
-     </if>
-     <if test="releaseDateStr!=null and releaseDateStr!=''">
-      and to_char(releaseDate,'yyyy-mm')=#{releaseDateStr}
-     </if>
-     </where>
-   </select> 
-   <select id="findById" parameterType="Integer" resultMap="BaseResultMap">
-     SELECT * FROM t_blog WHERE  id=#{id}
-   </select>
-   <select id="getPrevBlog" parameterType="Integer" resultMap="BaseResultMap">
-     select * from t_blog where id=(select max(id) from t_blog where id&lt;#{id})
-   </select>
-   <select id="getNextBlog" parameterType="Integer" resultMap="BaseResultMap">
-     select * from t_blog where id=(select min(id) from t_blog where id&gt;#{id})
-   </select>
-   <select id="getBlogNumByTypeId" parameterType="Integer" resultMap="BaseResultMap">
-    select count(1) from t_blog where type_id=#{typeId}
-   </select>
-   
+  	<select id="getBloggerData" resultMap="BaseResultMap">
+		SELECT * FROM t_blogger WHERE id=1
+	</select>
+	
+	<select id="getByUsername" resultMap="BaseResultMap">
+          select * from t_blogger where username=#{username}	
+	</select>
 </mapper>
