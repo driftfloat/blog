@@ -72,7 +72,7 @@ insert into t_blog(title,summary,releaseDate,clickHit,replyHit,content,keyWord,t
 values(
 'SSM框架整合','本文是博主对上述文章的整合时遇到的问题的汇总，首先给出最终的主要xml文件 ','2016-12-31 18:36:34',40,0,
 '1.先在cmd下运行（-Dfile后面的值写你oracle安装目录下的ojdbc包，因为下载oracle会提供ojdbc驱动程序包，所以可以不用在重新下载），2.然后在pom.xml文件中添加，最后一点是单元测试的时候，你不能直接run单元测试。 1.首先你要先把mapping文件复制到target\classes…文件夹下，如 F:\Workspaces\springmvc Maven Webapp\target\classes\net\cxp，因为此文件夹下没有映射xml文件。2.然后右键项目名–>run as–>maven test，之后在进行单元测试。不进行这步的话（F:\Workspaces\springmvc Maven Webapp\target\test-classes），你的test-classes文件夹下没有编译好的测试类class文件，自然会报类没有发现的异常。参考maven中运行junit4报测试类class not found错误——maven test命令 '
-,'spring 框架 spring mvcmybatis',1001);
+,'spring 框架 spring mvcmybatis',1);
 
 insert into t_blog(title,summary,releaseDate,clickHit,replyHit,content,keyWord,type_id)  
 values('ssh框架整合','配置环境spring4+hibernate4+struts2，首先在web.xml文件中加下面这行，默认会在applicationContext.xml文件中加载配置。applicationContext.xml要放在WEB-INF下。主要是配置applicationContext.xml里的东西，struts.xml里的基本不用改，唯一需要改的是下面这行：将全限定类名net.cxp.action.Login改为@Controller(“loginAction”)里写的名字。@Controller注解放在Action上。注意要添加@Scope注', '2016-12-05 19:47:21',61,1,
