@@ -55,7 +55,7 @@ CREATE TABLE t_comment(
 );
 
 insert into t_blogger(username,password,profile,nickname,sign,imagename) 
-values('chenxiaopan','cxp123','高富帅，有车有房，三岁习武，四岁从文，五岁打遍天下无敌手，至此归隐江湖，不问世事，编不下去了'
+values('test','test','高富帅，有车有房，三岁习武，四岁从文，五岁打遍天下无敌手，至此归隐江湖，不问世事，编不下去了'
 ,'cxp','知道做不到，等于不知道','myhead');
 
 insert into t_blogtype(typename,ordernum) values('原创',1);
