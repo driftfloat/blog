@@ -116,7 +116,7 @@
   </update>
   
   	<select id="getBloggerData" resultMap="BaseResultMap">
-		SELECT * FROM t_blogger WHERE id=1001
+		SELECT * FROM t_blogger WHERE id=1
 	</select>
 	
 	<select id="getByUsername" resultMap="BaseResultMap">
